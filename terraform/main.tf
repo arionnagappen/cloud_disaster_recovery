@@ -24,3 +24,28 @@ module "security_group" {
   source = "./modules/security_group"
   prim_vpc_id = module.prim_vpc.prim_vpc_id
 }
+
+// GLOBAL ACCELERATOR //
+module "global_accelerator" {
+  source = "./modules/global_accelerator"
+
+  global_accelerator_name = "DR-Global-Accelerator"
+  global_accelerator_ip_address_type = "IPV4"
+
+  // Protocol //
+  global_accelerator_protocol = "TCP"
+
+  // Ports //
+  global_accelerator_from_port = 80
+  global_accelerator_to_port = 80
+
+  // Region & Endpoint Resource //
+  global_accelerator_endpoint_region = "eu-west-1"
+  global_accelerator_endpoint_id = module.prim_instance.prim_instance_id
+
+  // Health Check //
+  global_accelerator_health_check_port = 80
+  global_accelerator_health_check_protocol = "TCP"
+  global_accelerator_health_check_path = "/"
+  global_accelerator_health_check_interval = 30
+}
