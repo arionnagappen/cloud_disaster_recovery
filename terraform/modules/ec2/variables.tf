@@ -1,12 +1,12 @@
-variable "prim_instance_ami" {
+variable "instance_ami" {
   type = string
 }
 
-variable "prim_instance_type" {
+variable "instance_type" {
   type = string
 }
 
-variable "prim_public_subnet_id" {
+variable "public_subnet_id" {
   type = string
 }
 

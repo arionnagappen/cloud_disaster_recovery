@@ -1,35 +1,35 @@
 // VPC //
-resource "aws_vpc" "prim_vpc" {
-  cidr_block = var.prim_vpc_cidr
+resource "aws_vpc" "vpc" {
+  cidr_block = var.vpc_cidr
   tags = {
-    Name = "Primary VPC"
+    Name = "VPC"
   }
 }
 
 // PUBLIC SUBNET //
-resource "aws_subnet" "prim_public_subnet" {
-  vpc_id = aws_vpc.prim_vpc.id
-  cidr_block = var.prim_subnet_cidr
-  availability_zone = var.prim_az_name
+resource "aws_subnet" "public_subnet" {
+  vpc_id = aws_vpc.vpc.id
+  cidr_block = var.subnet_cidr
+  availability_zone = var.az_name
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Primary Public Subnet"
+    Name = "Public Subnet"
   }
 }
 
 // INTERNET GATEWAY //
 resource "aws_internet_gateway" "prim_igw" {
-  vpc_id = aws_vpc.prim_vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "Primary IGW"
+    Name = "IGW"
   }
 }
 
 // ROUTE TABLES //
 resource "aws_route_table" "route_internet_traffic" {
-  vpc_id = aws_vpc.prim_vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -43,6 +43,6 @@ resource "aws_route_table" "route_internet_traffic" {
 }
 
 resource "aws_route_table_association" "prim_public_subnet_assoc" {
-  subnet_id = aws_subnet.prim_public_subnet.id
+  subnet_id = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.route_internet_traffic.id
 }

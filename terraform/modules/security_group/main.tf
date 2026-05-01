@@ -1,13 +1,11 @@
+// SECURITY GROUP //
 resource "aws_security_group" "allow_http" {
-  name = "allow_http"
-  description = "Allow HTTP inbound traffic and all outbound traffic"
-  vpc_id = var.prim_vpc_id
-
-  tags = {
-    Name = "allow_http"
-  }
+  name = "VPC Security Group"
+  description = "VPC Security Group"
+  vpc_id = var.vpc_id
 }
 
+// ALLOW HTTP //
 resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   security_group_id = aws_security_group.allow_http.id
   ip_protocol = "tcp"
@@ -16,7 +14,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   to_port = 80
 }
 
-// SSH //
+// ALLOW SSH //
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   security_group_id = aws_security_group.allow_http.id
   ip_protocol       = "tcp"
