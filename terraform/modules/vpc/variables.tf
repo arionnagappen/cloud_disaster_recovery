@@ -1,11 +1,11 @@
-variable "prim_vpc_cidr" {
+variable "vpc_cidr" {
   type = string
 }
 
-variable "prim_subnet_cidr" {
+variable "subnet_cidr" {
   type = string
 }
 
-variable "prim_az_name" {
+variable "az_name" {
   type = string
 }

@@ -1,3 +1,3 @@
-variable "prim_vpc_id" {
+variable "vpc_id" {
   type = string
 }
